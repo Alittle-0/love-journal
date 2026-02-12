@@ -12,8 +12,7 @@
   --card-foreground: #5d4037;
   
   /* Màu nền video (Xám đen nhẹ theo yêu cầu) */
-  --video-bg: #262626;    
-  --video-dots: rgba(255, 255, 255, 0.1); /* Đốm trắng mờ */
+  --video-bg: #262626;
 }
 
 /* --- DARK MODE --- */
@@ -25,10 +24,6 @@
   
   --card: #292524;        
   --card-foreground: #e7e5e4;
-  
-  /* Nền video dark mode (Đen sâu hơn) */
-  --video-bg: #0f0f0f;
-  --video-dots: rgba(255, 255, 255, 0.05);
 }
 
 /* 2. Map biến vào Tailwind v4 */

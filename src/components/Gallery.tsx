@@ -226,7 +226,7 @@ export default function Gallery() {
       {/* --- POP-UP (Giữ nguyên) --- */}
       {selectedMemory && (
         <div 
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-300"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-300"
             onClick={() => setSelectedMemory(null)}
         >
             <div 

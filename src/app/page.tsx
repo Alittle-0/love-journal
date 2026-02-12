@@ -15,9 +15,10 @@ export default function Home() {
           <HeroSection />
           <TimeTogether />
           <Gallery />
+          <VideoSection />
         </div>
       </div>
-      <VideoSection />
+      
     </main>
   );
 }

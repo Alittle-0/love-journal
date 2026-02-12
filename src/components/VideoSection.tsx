@@ -43,7 +43,7 @@ export default function VideoSection() {
   const darkArrowBtnClass = "p-4 transition-all duration-300 text-white opacity-40 hover:opacity-100 hover:scale-125 disabled:opacity-5 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:opacity-5";
 
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center relative overflow-hidden border-t border-line bg-video-bg text-white text-center py-20 px-4 select-none">
+    <section className="min-h-screen flex flex-col justify-center items-center relative overflow-hidden  border-line bg-video-bg text-white text-center py-20 px-4 select-none">
       <div className="absolute inset-0 bg-paper-texture opacity-20 pointer-events-none mix-blend-overlay z-0"></div>
 
       <div className="w-full max-w-7xl mx-auto px-4 relative z-10 flex flex-col items-center gap-12">
