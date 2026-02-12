@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Love Journal - Kỷ Niệm Tình Yêu
 
-## Getting Started
+Website lưu giữ những kỷ niệm đẹp của chúng mình.
 
-First, run the development server:
+## 🛠️ Công nghệ sử dụng
+
+-   **Framework:** Next.js 16
+-   **Ngôn ngữ:** TypeScript
+-   **Styling:** Tailwind CSS v4
+-   **Icons:** Lucide React
+-   **Fonts:** Google Fonts (Playfair Display, Dancing Script, Montserrat)
+-   **Theme:** Next-themes (Dark/Light mode)
+
+## 🚀 Cài đặt & Chạy cục bộ (Local)
+
+1.  **Clone dự án:**
+
+    ```bash
+    git clone https://github.com/username/love-journal.git
+    cd love-journal
+    ```
+
+2.  **Cài đặt dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Chạy server phát triển:**
+
+    ```bash
+    npm run dev
+    ```
+
+    Truy cập [http://localhost:3000](http://localhost:3000) để xem kết quả.
+
+## ☁️ Deploy lên Vercel (Khuyên dùng)
+
+Cách dễ nhất để deploy dự án Next.js là sử dụng **Vercel** (cùng nhà phát triển với Next.js).
+
+1.  Đẩy code của bạn lên **GitHub**, **GitLab**, hoặc **Bitbucket**.
+2.  Truy cập [Vercel Dashboard](https://vercel.com/new).
+3.  Đăng nhập và chọn **Add New Project**.
+4.  Import repository `love-journal` của bạn.
+5.  Vercel sẽ tự động phát hiện Next.js và cài đặt mặc định. Nhấn **Deploy**.
+6.  Website của bạn sẽ online sau vài phút!
+
+## 🐳 Deploy bằng Docker
+
+Nếu bạn muốn chạy trên VPS hoặc các nền tảng Container khác (như Railway, Render), bạn có thể sử dụng Docker.
+
+### 1. Build Docker Image
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker build -t love-journal .
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Run Container
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+docker run -p 3000:3000 love-journal
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Truy cập [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📝 Cấu trúc thư mục
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+├── public/          # Chứa ảnh, static files
+├── src/
+│   ├── app/         # App Router (page.tsx, layout.tsx, globals.css)
+│   ├── components/  # Các component React (HeroSection, Gallery, etc.)
+├── Dockerfile       # Cấu hình Docker build
+├── next.config.ts   # Cấu hình Next.js
+└── ...
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Made with ❤️ by Alitle

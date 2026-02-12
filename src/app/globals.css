@@ -1,26 +1,59 @@
 @import "tailwindcss";
 
+/* 1. Khai báo biến màu (CSS Variables) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* --- LIGHT MODE (Giao diện giấy cũ) --- */
+  --background: #f4eee8;  /* Nền kem */
+  --foreground: #5d4037;  /* Chữ nâu đậm (giống thiết kế) */
+  --line: #8d6e63;        /* Màu đường kẻ (nâu nhạt hơn chữ) */
+  --heart: #e57373;       /* Màu trái tim (hồng đất/đỏ nhạt) */
+  
+  --card: #ffffff;        
+  --card-foreground: #5d4037;
+  
+  /* Màu nền video (Xám đen nhẹ theo yêu cầu) */
+  --video-bg: #262626;    
+  --video-dots: rgba(255, 255, 255, 0.1); /* Đốm trắng mờ */
 }
 
-@theme inline {
+/* --- DARK MODE --- */
+.dark {
+  --background: #1c1917;  /* Nền đen nâu */
+  --foreground: #e7e5e4;  /* Chữ kem sáng */
+  --line: #57534e;        /* Đường kẻ màu xám nâu */
+  --heart: #f43f5e;       /* Trái tim màu đỏ hồng sáng hơn chút để nổi trên nền đen */
+  
+  --card: #292524;        
+  --card-foreground: #e7e5e4;
+  
+  /* Nền video dark mode (Đen sâu hơn) */
+  --video-bg: #0f0f0f;
+  --video-dots: rgba(255, 255, 255, 0.05);
+}
+
+/* 2. Map biến vào Tailwind v4 */
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-line: var(--line); /* Gọi class: border-line hoặc text-line */
+  --color-heart: var(--heart); /* Gọi class: text-heart */
+  --color-card: var(--card);
+  --color-video-bg: var(--video-bg);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    margin: 0;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    transition: all 0.3s ease;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility bg-paper-texture {
+  /* Dùng texture giấy gạo (rice paper) để thấy rõ vân sợi */
+  background-image: url("https://www.transparenttextures.com/patterns/rice-paper.png");
+  background-repeat: repeat;
+  /* Quan trọng: Đảo ngược màu texture (đen -> trắng) để nó hiện vân sáng trên nền đen */
+  filter: invert(1); 
 }
