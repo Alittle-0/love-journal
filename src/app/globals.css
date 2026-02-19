@@ -52,3 +52,4 @@
   /* Quan trọng: Đảo ngược màu texture (đen -> trắng) để nó hiện vân sáng trên nền đen */
   filter: invert(1); 
 }
+

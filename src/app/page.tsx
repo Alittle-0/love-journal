@@ -3,6 +3,7 @@ import HeroSection from '@/components/HeroSection';
 import TimeTogether from '@/components/TimeTogether';
 import Gallery from '@/components/Gallery';
 import VideoSection from '@/components/VideoSection';
+import LoveLetter from '@/components/LoveLetter';
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
           <TimeTogether />
           <Gallery />
           <VideoSection />
+          <LoveLetter />
         </div>
       </div>
       
