@@ -150,12 +150,6 @@ export default function VideoSection() {
             <ChevronRight className="text-white" />
           </button>
         </div>
-
-        <p
-          className={`mt-8 sm:mt-12 ${montserrat.className} text-lg sm:text-xl md:text-2xl lg:text-3xl tracking-widest uppercase text-white/60`}
-        >
-          Made with love by [Ten ban nam]
-        </p>
       </div>
 
       {/* --- POP-UP PLAYER (Giữ nguyên) --- */}

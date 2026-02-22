@@ -65,7 +65,7 @@ export default function HeroSection() {
             <p
               className={`${dancing.className} text-sm sm:text-base md:text-xl lg:text-2xl text-foreground/70 mt-1.5 sm:mt-2 md:mt-3 mb-0.5`}
             >
-              [Ten Ban Nu] 🌸
+              Quỳnh Như 🌸
             </p>
           </div>
 
@@ -84,7 +84,7 @@ export default function HeroSection() {
             <p
               className={`${dancing.className} text-sm sm:text-base md:text-xl lg:text-2xl text-foreground/70 mt-1.5 sm:mt-2 md:mt-3 mb-0.5`}
             >
-              [Ten Ban Nam] 🍂
+              Minh Quân 🍂
             </p>
           </div>
         </div>
