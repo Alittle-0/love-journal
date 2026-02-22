@@ -1,15 +1,15 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import { Montserrat } from 'next/font/google';
+"use client";
+import React, { useState, useEffect } from "react";
+import { Montserrat } from "next/font/google";
 
-const montserrat = Montserrat({ subsets: ['latin'] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function TimeTogether() {
   const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0 });
-  
+
   useEffect(() => {
     // Sửa ngày bắt đầu yêu của bạn ở đây: Năm, Tháng (bắt đầu từ 0), Ngày
-    const START_DATE = new Date(2025, 6, 2); 
+    const START_DATE = new Date(2025, 6, 2);
 
     const timer = setInterval(() => {
       const now = new Date();
@@ -25,22 +25,27 @@ export default function TimeTogether() {
 
   return (
     // Đã xóa bg-foreground/5 và các loại border để nền trong suốt
-    <section className="py-20 text-center">
-      <h3 className="text-2xl md:text-3xl font-bold mb-10 uppercase text-foreground/80 tracking-widest">
+    <section className="py-12 sm:py-16 md:py-20 text-center px-4">
+      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 sm:mb-8 md:mb-10 uppercase text-foreground/80 tracking-wider sm:tracking-widest">
         Chúng mình đã bên nhau
       </h3>
-      
-      <div className="grid grid-cols-3 gap-4 max-w-3xl mx-auto px-4">
+
+      <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 max-w-3xl mx-auto">
         {[
-          { label: 'Ngày', val: time.days },
-          { label: 'Giờ', val: time.hours },
-          { label: 'Phút', val: time.minutes }
+          { label: "Ngày", val: time.days },
+          { label: "Giờ", val: time.hours },
+          { label: "Phút", val: time.minutes },
         ].map((item) => (
-          <div key={item.label} className="bg-card p-6 rounded-2xl shadow-xl ring-1 ring-foreground/5 transition-all duration-300 hover:-translate-y-1">
-            <span className="block text-4xl md:text-6xl font-bold text-rose-500 dark:text-rose-400">
+          <div
+            key={item.label}
+            className="bg-card p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl ring-1 ring-foreground/5 transition-all duration-300 hover:-translate-y-1"
+          >
+            <span className="block text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-rose-500 dark:text-rose-400">
               {item.val}
             </span>
-            <span className={`${montserrat.className} uppercase text-xs md:text-sm tracking-widest text-foreground/60 mt-3 block`}>
+            <span
+              className={`${montserrat.className} uppercase text-[9px] sm:text-[10px] md:text-xs lg:text-sm tracking-wider sm:tracking-widest text-foreground/60 mt-1.5 sm:mt-2 md:mt-3 block`}
+            >
               {item.label}
             </span>
           </div>

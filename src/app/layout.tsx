@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"; // Hoặc font bạn đang dùng
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import MusicPlayer from "@/components/MusicPlayer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
           
           {/* Nút chuyển theme nằm ở đây, sẽ hiện nổi ở góc */}
           <ThemeToggle /> 
+          <MusicPlayer/>
         </ThemeProvider>
       </body>
     </html>
