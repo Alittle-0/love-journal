@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function MusicPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null); // Thêm ref để quản lý vùng click
+  const containerRef = useRef<HTMLDivElement>(null); 
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [isMuted, setIsMuted] = useState(false);
@@ -18,37 +18,53 @@ export default function MusicPlayer() {
     }
   }, [volume, isMuted]);
 
-  // Tự động phát nhạc
+  // PHÁT NHẠC KHI NGƯỜI DÙNG TƯƠNG TÁC LẦN ĐẦU TIÊN (CLICK / CHẠM)
   useEffect(() => {
-    const attemptAutoplay = async () => {
+    let hasStarted = false; // Biến cờ để đảm bảo chỉ chạy 1 lần
+
+    const handleFirstInteraction = async () => {
+      if (hasStarted) return;
+
       if (audioRef.current) {
         try {
           await audioRef.current.play();
           setIsPlaying(true);
-        } catch {
-          console.log("Trình duyệt chặn tự động phát. Chờ người dùng click.");
-          setIsPlaying(false);
+          hasStarted = true; // Đánh dấu là đã phát
+
+          // Gỡ bỏ sự kiện sau khi đã phát nhạc thành công để tối ưu hiệu suất
+          document.removeEventListener("click", handleFirstInteraction);
+          document.removeEventListener("touchstart", handleFirstInteraction);
+          document.removeEventListener("keydown", handleFirstInteraction);
+        } catch (error) {
+          console.log("Trình duyệt vẫn chặn hoặc chưa sẵn sàng phát nhạc:", error);
         }
       }
     };
-    attemptAutoplay();
+
+    // Lắng nghe các thao tác của người dùng trên toàn bộ trang
+    document.addEventListener("click", handleFirstInteraction);
+    document.addEventListener("touchstart", handleFirstInteraction);
+    document.addEventListener("keydown", handleFirstInteraction);
+
+    return () => {
+      document.removeEventListener("click", handleFirstInteraction);
+      document.removeEventListener("touchstart", handleFirstInteraction);
+      document.removeEventListener("keydown", handleFirstInteraction);
+    };
   }, []);
 
-  // XỬ LÝ CHẠM RA NGOÀI ĐỂ ĐÓNG VOLUME (FIX LỖI TRÊN MOBILE)
+  // XỬ LÝ CHẠM RA NGOÀI ĐỂ ĐÓNG VOLUME TRÊN MOBILE
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      // Nếu click xảy ra bên ngoài vùng của containerRef thì thu gọn player lại
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setIsHovered(false);
       }
     };
 
-    // Lắng nghe cả sự kiện click chuột (desktop) và chạm (mobile)
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("touchstart", handleClickOutside);
 
     return () => {
-      // Clean up event listener khi component unmount
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("touchstart", handleClickOutside);
     };
@@ -78,14 +94,15 @@ export default function MusicPlayer() {
 
   return (
     <>
-      <audio ref={audioRef} src="/background-music.mp3" loop autoPlay />
+      {/* Đã xóa thuộc tính autoPlay để chờ user tương tác */}
+      <audio ref={audioRef} src="/background-music.mp3" loop />
 
       <motion.div
-        ref={containerRef} // Gắn ref vào container chính
+        ref={containerRef} 
         className="fixed bottom-[4.5rem] right-4 md:bottom-[5.5rem] md:right-6 z-50 flex items-center bg-white dark:bg-[#5d4037] text-[#5d4037] dark:text-[#f4eee8] shadow-xl border border-gray-200 dark:border-gray-700 rounded-full h-10 md:h-12 transition-all duration-300 cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={() => setIsHovered(true)} // Khi chạm vào thì mở ra
+        onClick={() => setIsHovered(true)} 
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1 }}
@@ -94,7 +111,7 @@ export default function MusicPlayer() {
           className={`flex items-center justify-start overflow-hidden transition-all duration-500 ease-in-out h-full ${
             isHovered ? "w-24 md:w-28 opacity-100 pl-3 md:pl-4" : "w-0 opacity-0 pl-0"
           }`}
-          onClick={(e) => e.stopPropagation()} // Ngăn sự kiện khi đang kéo thanh âm lượng
+          onClick={(e) => e.stopPropagation()} 
         >
           <button onClick={toggleMute} className="hover:opacity-70 transition-opacity shrink-0">
             {isMuted || volume === 0 ? <VolumeX size={18} /> : <Volume2 size={18} />}
