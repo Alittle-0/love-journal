@@ -8,12 +8,19 @@ export default function TimeTogether() {
   const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0 });
 
   useEffect(() => {
-    // Sửa ngày bắt đầu yêu của bạn ở đây: Năm, Tháng (bắt đầu từ 0), Ngày
-    const START_DATE = new Date(2025, 6, 2);
+    // Ngày bắt đầu: Năm 2025, Tháng 6 (tháng 7 trong JS), Ngày 2, 15 giờ, 0 phút, 0 giây
+    const START_DATE = new Date(2025, 6, 2, 15, 0, 0);
 
     const timer = setInterval(() => {
       const now = new Date();
       const diff = now.getTime() - START_DATE.getTime();
+      
+      // Nếu thời gian hiện tại chưa tới mốc thì hiển thị toàn số 0 để tránh lỗi số âm
+      if (diff < 0) {
+        setTime({ days: 0, hours: 0, minutes: 0 });
+        return;
+      }
+
       setTime({
         days: Math.floor(diff / (1000 * 60 * 60 * 24)),
         hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
@@ -24,7 +31,6 @@ export default function TimeTogether() {
   }, []);
 
   return (
-    // Đã xóa bg-foreground/5 và các loại border để nền trong suốt
     <section className="py-12 sm:py-16 md:py-20 text-center px-4">
       <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 sm:mb-8 md:mb-10 uppercase text-foreground/80 tracking-wider sm:tracking-widest">
         Chúng mình đã bên nhau

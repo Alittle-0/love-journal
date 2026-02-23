@@ -6,19 +6,26 @@ import { Play, X, Clapperboard, ChevronLeft, ChevronRight } from "lucide-react";
 const dancing = Dancing_Script({ subsets: ["latin"] });
 const montserrat = Montserrat({ subsets: ["latin"] });
 
+// 1. Interface giờ KHÔNG cần thuộc tính thumbnail nữa
 interface Video {
-  id: string;
+  src: string;
   title: string;
   date?: string;
 }
 
-// Thêm nhiều video để test chức năng chuyển trang
+// 2. Dữ liệu mẫu chỉ cần link mp4
 const videos: Video[] = [
-  { id: "dQw4w9WgXcQ", title: "Ngày mình gặp nhau", date: "02/07/2025" },
-  { id: "jfKfPfyJRdk", title: "Chuyến đi Đà Lạt", date: "12/08/2025" },
-  { id: "5qap5aO4i9A", title: "Sinh nhật em", date: "20/10/2025" },
-  { id: "M7lc1UVf-VE", title: "Video Thứ 4", date: "01/01/2026" },
-  { id: "jNQXAC9IVRw", title: "Video Thứ 5", date: "02/01/2026" },
+  { 
+    src: "/vidvungtaul1.MP4", 
+    title: "Chuyến đi Vũng Tàu đầu tiên", 
+    date: "12/08/2025" 
+  },
+  { 
+    src: "/sinhnhatanh.MP4", 
+    title: "Sinh nhật của anh", 
+    date: "02/07/2025" 
+  },
+  
 ];
 
 export default function VideoSection() {
@@ -26,7 +33,7 @@ export default function VideoSection() {
 
   // --- LOGIC PHÂN TRANG (CAROUSEL) ---
   const [startIndex, setStartIndex] = useState(0);
-  const VIDEO_LIMIT = 1; // Hiển thị 1 video, lướt để xem thêm
+  const VIDEO_LIMIT = 1; 
 
   const nextSlide = () => {
     if (startIndex + VIDEO_LIMIT < videos.length) {
@@ -44,7 +51,7 @@ export default function VideoSection() {
     "p-4 transition-all duration-300 text-white opacity-40 hover:opacity-100 hover:scale-125 disabled:opacity-5 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:opacity-5";
 
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center relative overflow-hidden  border-line bg-video-bg text-white text-center py-12 sm:py-16 md:py-20 px-3 sm:px-4 select-none">
+    <section className="min-h-screen flex flex-col justify-center items-center relative overflow-hidden  border-line bg-zinc-950 text-white text-center py-12 sm:py-16 md:py-20 px-3 sm:px-4 select-none">
       <div className="absolute inset-0 bg-paper-texture opacity-20 pointer-events-none mix-blend-overlay z-0"></div>
 
       <div className="w-full max-w-7xl mx-auto px-4 relative z-10 flex flex-col items-center gap-12">
@@ -69,7 +76,6 @@ export default function VideoSection() {
 
         {/* --- CAROUSEL KHU VỰC VIDEO --- */}
         <div className="flex items-center gap-4 w-full">
-          {/* Nút Prev */}
           <button
             onClick={prevSlide}
             disabled={startIndex === 0}
@@ -78,22 +84,27 @@ export default function VideoSection() {
             <ChevronLeft className="text-white" size={40} />
           </button>
 
-          {/* Grid hiển thị video - responsive */}
           <div className="flex-1 flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 w-full">
             {videos
               .slice(startIndex, startIndex + VIDEO_LIMIT)
               .map((video, index) => (
                 <div
-                  key={`${video.id}-${index}`}
-                  onClick={() => setPlayingVideo(video.id)}
+                  key={`${video.src}-${index}`}
+                  onClick={() => setPlayingVideo(video.src)} 
                   className="w-full max-w-2xl mx-auto group cursor-pointer flex flex-col gap-3 sm:gap-4 animate-in fade-in slide-in-from-right-4 duration-500"
                 >
-                  <div className="relative aspect-video w-full rounded-xl border border-white/10 shadow-2xl overflow-hidden bg-zinc-900 transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-rose-900/20 ring-1 ring-white/5">
-                    <img
-                      src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
-                      alt={video.title}
+                  <div className="relative aspect-video w-full rounded-xl border border-white/10 shadow-2xl overflow-hidden bg-zinc-900 transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-rose-900/20 ring-1 ring-white/5 pointer-events-none">
+                    
+                    {/* TỰ ĐỘNG LẤY ẢNH BÌA TỪ MP4 */}
+                    {/* Dùng #t=0.1 để ép trình duyệt load frame ở giây 0.1 làm ảnh hiển thị */}
+                    <video
+                      src={`${video.src}#t=0.1`}
+                      preload="metadata"
+                      muted
+                      playsInline
                       className="w-full h-full object-cover opacity-70 group-hover:opacity-50 transition-opacity duration-500"
                     />
+
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-rose-500/80 transition-all duration-300">
                         <Play className="w-6 h-6 text-white fill-white ml-1" />
@@ -123,7 +134,6 @@ export default function VideoSection() {
               ))}
           </div>
 
-          {/* Nút Next */}
           <button
             onClick={nextSlide}
             disabled={startIndex + VIDEO_LIMIT >= videos.length}
@@ -133,7 +143,6 @@ export default function VideoSection() {
           </button>
         </div>
 
-        {/* Nút điều hướng cho Mobile (Hiện dưới grid) */}
         <div className="flex md:hidden gap-4 mt-4">
           <button
             onClick={prevSlide}
@@ -152,7 +161,7 @@ export default function VideoSection() {
         </div>
       </div>
 
-      {/* --- POP-UP PLAYER (Giữ nguyên) --- */}
+      {/* --- POP-UP PLAYER --- */}
       {playingVideo && (
         <div
           className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 backdrop-blur-xl animate-in fade-in duration-300 p-4 md:p-10"
@@ -171,13 +180,17 @@ export default function VideoSection() {
                 className="group-hover:rotate-90 transition-transform duration-300"
               />
             </button>
-            <iframe
-              className="w-full h-full"
-              src={`https://www.youtube.com/embed/${playingVideo}?autoplay=1&rel=0`}
-              title="Video Player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+            
+            <video
+              className="w-full h-full object-contain"
+              controls
+              autoPlay
+              playsInline
+            >
+              <source src={playingVideo} type="video/mp4" />
+              Trình duyệt của bạn không hỗ trợ thẻ video.
+            </video>
+
           </div>
         </div>
       )}
